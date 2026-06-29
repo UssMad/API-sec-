@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Blueprint;
+use App\Http\Requests\StoreBlueprintRequest;
+use App\Http\Resources\BlueprintResource;
+
 
 class BlueprintController extends Controller
 {
@@ -13,16 +16,19 @@ class BlueprintController extends Controller
      */
     public function index()
     {
-        $blueprints = Blueprint::latest()->get();
-        return response()->json($blueprints);
+        $blueprints = auth()->user()->blueprints()->latest()->get();
+        return BlueprintResource::collection(auth()->user()->blueprints()->latest()->get());
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreBlueprintRequest $request)
     {
-        //
+        $blueprint = Blueprint::create($request->validated());
+        return (new BlueprintResource($blueprint))
+            ->response()
+            ->setStatusCode(201);
     }
 
     /**
@@ -30,7 +36,7 @@ class BlueprintController extends Controller
      */
     public function show(Blueprint $blueprint)
     { 
-        return response()->json($blueprint);
+        return new BlueprintResource($blueprint);
     }
 
     /**
