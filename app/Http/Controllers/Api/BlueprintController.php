@@ -25,7 +25,7 @@ class BlueprintController extends Controller
      */
     public function store(StoreBlueprintRequest $request)
     {
-        $blueprint = Blueprint::create($request->validated());
+        $blueprint = auth()->user()->blueprints()->create($request->validated());
         return (new BlueprintResource($blueprint))
             ->response()
             ->setStatusCode(201);
@@ -36,6 +36,8 @@ class BlueprintController extends Controller
      */
     public function show(Blueprint $blueprint)
     { 
+        $blueprint = auth()->user()->blueprints()->findOrFail($blueprint->id);
+
         return new BlueprintResource($blueprint);
     }
 
