@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\BlueprintFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 ])]
 class Blueprint extends Model
 {
-    /** @use HasFactory<\Database\Factories\BlueprintFactory> */
+    /** @use HasFactory<BlueprintFactory> */
     use HasFactory;
 
     public function user(): BelongsTo

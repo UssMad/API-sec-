@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\RawContentFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,10 +14,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
     'blueprint_id',
     'title',
     'content',
+    'status',
 ])]
 class RawContent extends Model
 {
-    /** @use HasFactory<\Database\Factories\RawContentFactory> */
+    /** @use HasFactory<RawContentFactory> */
     use HasFactory;
 
     public function user(): BelongsTo
